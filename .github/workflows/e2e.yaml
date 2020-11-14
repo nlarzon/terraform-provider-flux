@@ -45,6 +45,11 @@ jobs:
             echo 'run make test and commit changes'
             exit 1
           fi
+      - name: Terraform Lint
+        uses: rickardl/tflint-action@v1
+        env:
+          TFLINT_ACTION_TERRAFORM_FOLDER: examples/github
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run install terraform
         run: |
           mkdir -p ./examples/install/.terraform/plugins/registry.terraform.io/fluxcd/flux/0.0.1/linux_amd64
@@ -52,4 +57,3 @@ jobs:
           cd examples/install
           terraform init
           terraform apply -auto-approve
-
